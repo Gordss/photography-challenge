@@ -1,0 +1,18 @@
+users
+*userName
+*Person FirstName
+*Person LastName
+*email
+*password
+
+challenge
+!duration atleast 1 week
+*title
+*startTime
+*endTime
+
+Challenge_Photos
+*photo_Id
+*challenge_Id
+*votes
+*user_Id

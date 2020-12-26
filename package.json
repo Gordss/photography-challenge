@@ -1,0 +1,25 @@
+{
+  "name": "photography-challenge",
+  "version": "1.0.0",
+  "description": "photography rating site users make challenges, set award price user attend the challenge with photos users vote for other photos in the challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gordss/photography-challenge.git"
+  },
+  "author": "George Shavov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gordss/photography-challenge/issues"
+  },
+  "homepage": "https://github.com/Gordss/photography-challenge#readme",
+  "dependencies": {
+    "bootstrap": "^5.0.0-beta1",
+    "express": "^4.17.1",
+    "lit-html": "^1.3.0",
+    "mongodb": "^3.6.3"
+  }
+}
