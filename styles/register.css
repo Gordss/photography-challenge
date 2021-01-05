@@ -24,11 +24,10 @@ form {
 }
 
 p {
-  position: relative;
+    position: relative;
 }
 
-
-input[type=email], input[type=password] {
+input {
   width: 95%;
   margin: 0;
   display: block;
@@ -40,9 +39,14 @@ input[type=email], input[type=password] {
   border-radius: 2px;
 }
 
-.checkbox {
-  margin: 10px 260px 10px 0;
-  left: -25px;
+span {
+    display: block;
+    background: #ff7675;
+    padding: 2px 5px;
+    width: 92%;
+    margin: auto;
+    color:#dfe6e9;
+    display: none;
 }
 
 button {
@@ -57,17 +61,17 @@ button {
 }
 
 .submit-button {
-  background-color: #4CAF50;
+    background-color: #4CAF50;
 }
 
 .submit-button:hover, .submit-button:focus {
-  background-color: #1A531D;
+    background-color: #1A531D;
 }
 
 .cancel-button {
-  background-color: #FF5733;
+    background-color: #FF5733;
 }
 
 .cancel-button:hover, .cancel-button:focus {
-  background-color: #52241A;
+    background-color: #52241A;
 }

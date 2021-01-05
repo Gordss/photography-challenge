@@ -6,16 +6,19 @@ const UserSignInFormTemplate = (context) => html`
     <div class="container">
         <form @submit=${context.submitHandler.bind(context)}>
             <h1>Please sign in</h1>
-            <label for="inputEmail">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
-            <label for="inputPassword">Password</label>
-            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+            <p>
+              <input type="email" id="inputEmail" name="email" placeholder="Email address" required autofocus>
+            </p>
+            <p>
+              <input type="password" id="inputPassword" name="password" placeholder="Password" required>
+            </p>
             <div class="checkbox">
               <label>
                 <input type="checkbox" value="remember-me"> Remember me
               </label>
             </div>
-            <button type="submit">Sign in</button>
+            <button type="submit" class="submit-button">Sign in</button>
+            <button class="cancel-button">Cancel</button>
         </form>
     </div>
 `;

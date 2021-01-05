@@ -2,29 +2,27 @@ import { html } from '/lit-html/lit-html.js';
 import { decorateAsComponent } from './utils/decorate-as-component.js';
 
 const userRegisterFormTemplate = (context) => html`
+  <link href="/styles/register.css" rel="stylesheet">
+  <div class="container">
     <form @submit=${context.submitHandler.bind(context)}>
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username">
-        </div>
-        <div class="form-group">
-          <label for="person-first-name">First name:</label>
-          <input type="text" id="person-first-name" name="firstName">
-        </div>
-        <div class="form-group">
-          <label for="person-last-name">Last name:</label>
-          <input type="text" id="person-last-name" name="lastName">
-        </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password">
-        </div>
-        <button>Register</button>
+        <h1>Register</h1>
+        <p>
+          <input type="text" id="username" name="username" placeholder="Username" required>
+        </p>
+        <p>
+          <input type="email" id="email" name="email" placeholder="E-mail" required>
+        </p>
+        <p>
+          <input type="password" id="password" name="password" placeholder="Password" required>
+        </p>
+        <p>
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+          <span>Passwords do not match</span>
+        </p>
+        <button type="submit" class="submit-button">Register</button>
+        <button class="cancel-button">Cancel</button>
     </form>
+  </div>
 `;
 
 export class UserRegistrationFormComponent extends HTMLElement {
