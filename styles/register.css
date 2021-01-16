@@ -40,13 +40,11 @@ input {
 }
 
 span {
-    display: block;
-    background: #ff7675;
-    padding: 2px 5px;
-    width: 92%;
-    margin: auto;
-    color:#dfe6e9;
-    display: none;
+  color:#cc2936;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+  display: none;
 }
 
 button {
@@ -57,21 +55,30 @@ button {
   padding: 14px 20px;
   border: none;
   cursor: pointer;
-  width: 49.5%;
+  width: 50%;
 }
 
 .submit-button {
-    background-color: #4CAF50;
+  background-color: #4CAF50;
 }
 
 .submit-button:hover, .submit-button:focus {
-    background-color: #1A531D;
+  background-color: #1A531D;
 }
 
-.cancel-button {
-    background-color: #FF5733;
+a {
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  width: 39%;
+  text-decoration: none;
+  background-color: #FF5733;
 }
 
-.cancel-button:hover, .cancel-button:focus {
+a:hover, a:focus {
     background-color: #52241A;
 }

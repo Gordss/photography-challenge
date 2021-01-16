@@ -17,10 +17,10 @@ const userRegisterFormTemplate = (context) => html`
         </p>
         <p>
           <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
-          <span>Passwords do not match</span>
+          <span id="error">Passwords do not match</span>
         </p>
-        <button type="submit" class="submit-button">Register</button>
-        <button class="cancel-button">Cancel</button>
+        <button class="submit-button">Register</button>
+        <a href="/">Cancel</a>
     </form>
   </div>
 `;
@@ -35,23 +35,60 @@ export class UserRegistrationFormComponent extends HTMLElement {
         decorateAsComponent(this, userRegisterFormTemplate);
     }
 
+    verifyNewUser(email, passHash)
+    {
+        return fetch(`/api/users/${email}/${passHash}`)
+            .then(res => res.json())
+            .finally(result => {
+              if(!this.isObjectEmpty(result))
+              {
+                this.displayError();
+                reject();
+              }
+            });
+    }
+
+    displayError()
+    {
+        this.shadowRoot.getElementById('error').setAttribute('style', 'display: block;');
+    }
+
+    isObjectEmpty(value) {
+        return (
+          Object.prototype.toString.call(value) === '[object Array]' &&
+          JSON.stringify(value) === '[]'
+        );
+    }
+
     submitHandler(event) {
         event.preventDefault();
-        const formFields = Array.from(this.shadowRoot.querySelectorAll('div.form-group *[name]'));
+        const formFields = Array.from(this.shadowRoot.querySelectorAll('p [name]'));
         const body = formFields.reduce((acc, currField) => {
             acc[currField.name] = currField.value;
             return acc;
         }, {});
-        
-        fetch('/api/users', {
-            headers: {
-                'content-type' : 'application/json'
-            },
-            method: 'POST',
-            body: JSON.stringify(body)  
-        }).then(() => {
-            window.location = '/';
-        });
+
+        if(body['password'] !== body['confirm_password'])
+        {
+          this.displayError();
+        }
+        else
+        {
+          let checkExisting = this.verifyNewUser(body['email'], body['password']);
+
+          if(!checkExisting.isRejected)
+          {
+            fetch('/api/users', {
+                headers: {
+                    'content-type' : 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(body)  
+            }).then(() => {
+                window.location = '/';
+            });
+          }
+        }
     }
 }
 

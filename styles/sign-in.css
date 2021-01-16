@@ -21,12 +21,12 @@ form {
   max-width: 400px;
   text-align: center;
   margin: auto;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 p {
   position: relative;
 }
-
 
 input[type=email], input[type=password] {
   width: 95%;
@@ -38,6 +38,14 @@ input[type=email], input[type=password] {
   padding: .8em .5em;
   margin: auto;
   border-radius: 2px;
+}
+
+span {
+  color:#cc2936;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+  display: none;
 }
 
 .checkbox {
@@ -64,10 +72,19 @@ button {
   background-color: #1A531D;
 }
 
-.cancel-button {
+a {
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  width: 39%;
+  text-decoration: none;
   background-color: #FF5733;
 }
 
-.cancel-button:hover, .cancel-button:focus {
-  background-color: #52241A;
+a:hover, a:focus {
+    background-color: #52241A;
 }

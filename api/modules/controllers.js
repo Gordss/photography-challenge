@@ -15,6 +15,12 @@ function generateControllers(name) {
           next();
         });
       },
+      findOne: (req, res, next) => {
+        queries.get({ email: req.params.email, password: req.params.password}).then(users => {
+          res.locals.data = users;
+          next();
+        })
+      },
       create: (req, res, next) => {
         return queries.insert(req.body).then(user => {
           res.locals.data = user;

@@ -12,13 +12,16 @@ const UserSignInFormTemplate = (context) => html`
             <p>
               <input type="password" id="inputPassword" name="password" placeholder="Password" required>
             </p>
+            <p>
+              <span id="error">Invalid email or password!</span>
+            </p>
             <div class="checkbox">
               <label>
                 <input type="checkbox" value="remember-me"> Remember me
               </label>
             </div>
             <button type="submit" class="submit-button">Sign in</button>
-            <button class="cancel-button">Cancel</button>
+            <a href="/">Cancel</a>
         </form>
     </div>
 `;
@@ -33,22 +36,40 @@ export class UserSignInFormComponent extends HTMLElement {
         decorateAsComponent(this, UserSignInFormTemplate);
     }
 
+    verifyUser(email, passHash)
+    {
+        return fetch(`/api/users/${email}/${passHash}`)
+            .then(res => res.json());
+    }
+
+    displayError()
+    {
+        this.shadowRoot.getElementById('error').setAttribute('style', 'display: block;');
+    }
+
+    isObjectEmpty(value) {
+        return (
+          Object.prototype.toString.call(value) === '[object Array]' &&
+          JSON.stringify(value) === '[]'
+        );
+    }
+
     submitHandler(event) {
         event.preventDefault();
-        const formFields = Array.from(this.shadowRoot.querySelectorAll('input'));
+        const formFields = Array.from(this.shadowRoot.querySelectorAll('p [name]'));
         const body = formFields.reduce((acc, currField) => {
             acc[currField.name] = currField.value;
             return acc;
         }, {});
 
-        fetch('/api/users', {
-            headers: {
-                'content-type' : 'application/json'
-            },
-            method: 'POST',
-            body: JSON.stringify(body)
-        }).then(() => {
-            window.location = '/';
+        this.verifyUser(body['email'], body['password']).then((result) => {
+            if(!this.isObjectEmpty(result)){
+                window.location = '/';
+            }
+            else
+            {
+                this.displayError();
+            }
         });
     }
 }

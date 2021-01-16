@@ -20,4 +20,12 @@ router.route('/:id')
     )
     .delete(userController.remove);
 
+router.route('/:email/:password')
+    .get(userController.findOne)
+    .put(
+        checkAndExtractUserFieldsMiddlewareFactory({strict: false}),
+        userController.update
+    )
+    .delete(userController.remove);
+
 module.exports = router;
