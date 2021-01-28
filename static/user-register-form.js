@@ -1,7 +1,7 @@
 import { html } from '/lit-html/lit-html.js';
 import { decorateAsComponent } from './utils/decorate-as-component.js';
 
-const userRegisterFormTemplate = (context) => html`
+const UserRegisterFormTemplate = (context) => html`
   <link href="/styles/register.css" rel="stylesheet">
   <div class="container">
     <form @submit=${context.submitHandler.bind(context)}>
@@ -19,8 +19,10 @@ const userRegisterFormTemplate = (context) => html`
           <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
           <span id="error">Passwords do not match</span>
         </p>
-        <button class="submit-button">Register</button>
-        <a href="/">Cancel</a>
+        <ul>
+          <li><button class="submit-button">Register</button></li>
+          <li style="float:right"><a href="/">Cancel</a></li>
+        </ul>
     </form>
   </div>
 `;
@@ -32,7 +34,7 @@ export class UserRegistrationFormComponent extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open'});
 
-        decorateAsComponent(this, userRegisterFormTemplate);
+        decorateAsComponent(this, UserRegisterFormTemplate);
     }
 
     verifyNewUser(email, passHash)

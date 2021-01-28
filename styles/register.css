@@ -21,6 +21,7 @@ form {
   max-width: 400px;
   text-align: center;
   margin: auto;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 p {
@@ -37,6 +38,7 @@ input {
   padding: .8em .5em;
   margin: auto;
   border-radius: 2px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 span {
@@ -52,10 +54,12 @@ button {
   color: white;
   font-size: 20px;
   font-weight: bold;
-  padding: 14px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 15px 20px;
   border: none;
+  border-radius: 20px;
   cursor: pointer;
-  width: 50%;
+  width: 100%;
 }
 
 .submit-button {
@@ -66,17 +70,30 @@ button {
   background-color: #1A531D;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+  
+li {
+  float: left;
+  width: 50%;
+}
+
 a {
   display: inline-block;
   color: white;
   font-size: 20px;
   font-weight: bold;
-  padding: 14px 20px;
+  padding: 15px 20px;
   border: none;
   cursor: pointer;
-  width: 39%;
+  width: 80%;
   text-decoration: none;
   background-color: #FF5733;
+  border-radius: 20px;
 }
 
 a:hover, a:focus {

@@ -1,8 +1,8 @@
 import { html } from '/lit-html/lit-html.js';
 import { decorateAsComponent } from './utils/decorate-as-component.js'
 
-const UserSignInFormTemplate = (context) => html`
-    <link href="/styles/sign-in.css" rel="stylesheet">
+const UserLogInFormTemplate = (context) => html`
+    <link href="/styles/log-in.css" rel="stylesheet">
     <div class="container">
         <form @submit=${context.submitHandler.bind(context)}>
             <h1>Please sign in</h1>
@@ -20,20 +20,22 @@ const UserSignInFormTemplate = (context) => html`
                 <input type="checkbox" value="remember-me"> Remember me
               </label>
             </div>
-            <button type="submit" class="submit-button">Sign in</button>
-            <a href="/">Cancel</a>
+            <ul>
+                <li><button type="submit" class="submit-button">Sign in</button></li>
+                <li style="float:right"><a href="/">Cancel</a></li>
+            </ul>
         </form>
     </div>
 `;
 
-export class UserSignInFormComponent extends HTMLElement {
+export class UserLogInFormComponent extends HTMLElement {
     static selector = 'app-sign-in-form';
 
     constructor() {
         super();
         this.attachShadow({ mode: 'open'});
 
-        decorateAsComponent(this, UserSignInFormTemplate);
+        decorateAsComponent(this, UserLogInFormTemplate);
     }
 
     verifyUser(email, passHash)
@@ -74,4 +76,4 @@ export class UserSignInFormComponent extends HTMLElement {
     }
 }
 
-customElements.define(UserSignInFormComponent.selector, UserSignInFormComponent);
+customElements.define(UserLogInFormComponent.selector, UserLogInFormComponent);

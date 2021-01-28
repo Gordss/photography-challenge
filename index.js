@@ -47,8 +47,8 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__basedir, 'index.html'));
 });
 
-app.get('/sign-in', function (req, res) {
-    res.sendFile(path.join(__basedir, 'sign-in.html'));
+app.get('/log-in', function (req, res) {
+    res.sendFile(path.join(__basedir, 'log-in.html'));
 });
 
 app.get('/register', function (req, res) {

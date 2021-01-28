@@ -4,12 +4,14 @@ import { decorateAsStateProperty } from './utils/decorate-as-state-property.js';
 import { UserListComponent } from './user-list.js';
 
 const appTemplate = context => html`
-    <div>${context.title}</div>
-    <nav>
-        <a href="/"> User List </a>
-        <a href="/register"> Register </a>
-        <a href="/sign-in"> Sign-in </a>
-    </nav>
+    <link href="/styles/index.css" rel="stylesheet">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/">Challenges</a></li>
+        <li><a href="/">New challenge</a></li>
+        <li style="float:right"><a href="/register">Register</a></li>
+        <li style="float:right"><a href="/log-in">Log in</a></li>
+    </ul>
     <app-user-list></app-user-list>
 `;
 
@@ -19,8 +21,6 @@ class AppComponent extends HTMLElement {
         this.attachShadow({ mode: 'open'});
 
         decorateAsComponent(this, appTemplate);
-
-        decorateAsStateProperty(this, 'title', 'User database');
     }
 }
 
