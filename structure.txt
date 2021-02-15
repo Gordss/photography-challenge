@@ -16,3 +16,11 @@ Challenge_Photos
 *challenge_Id
 *votes
 *user_Id
+
+Pages
+-index
+--challenges tab
+--create challenge tab
+-register
+-login
+
