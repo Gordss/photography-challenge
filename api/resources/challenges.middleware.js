@@ -1,13 +1,13 @@
 //check for the required fields
 
-module.exports.checkAndExtractUserFieldsMiddlewareFactory =
-function checkAndExtractUserFieldsMiddlewareFactory({ strict } = { strict: false }) {
+module.exports.checkAndExtractChallengesFieldsMiddlewareFactory =
+function checkAndExtractChallengesFieldsMiddlewareFactory({ strict } = { strict: false }) {
   return function (req, res, next) {
-    const { title, details, finalDate, image, userId } = req.body || {};
-    if (strict && (!title || !finalDate || !userId)) {
+    const { title, details, prize, finalDate, image, userId } = req.body || {};
+    if (strict && (!title || !prize || !finalDate || !userId)) {
       return void next(new Error('BAD_REQUEST'));
     }
-    req.body = { title, details, finalDate, image, userId };
+    req.body = { title, details, prize, finalDate, image, userId };
     next();
   };
 };

@@ -4,13 +4,16 @@ import { decorateAsComponent } from './utils/decorate-as-component.js';
 const NewChallengeFormTemplate = (context) => html`
   <link href="/styles/new-challenge.css" rel="stylesheet">
   <div class="container">
-    <form @submit=${context.submitHandler.bind(context)}>
+    <form action="fileupload" @submit=${context.submitHandler.bind(context)}>
         <h1>Create your challenge</h1>
         <p>
           <input type="text" id="title" name="title" placeholder="Title" required>
         </p>
         <p>
           <input type="text" id="details" name="details" placeholder="Challenge details">
+        </p>
+        <p>
+          <input type="number" id="prize" name="prize" min="1" step="any" placeholder="1,000.00€">
         </p>
         <p>
           <label for="finalDate">Select final date:</label>
@@ -45,6 +48,15 @@ export class NewChallengeFormComponent extends HTMLElement {
           return acc;
       }, {});
 
+      fetch('/api/challenges', {
+        headers: {
+          'content-type' : 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(body)
+      }).then(() => {
+        window.location = '/';
+      });
     }
 }
 

@@ -24,3 +24,5 @@ Pages
 -register
 -login
 
+TODO:
+when creating challenge check if exists with same title and from same user

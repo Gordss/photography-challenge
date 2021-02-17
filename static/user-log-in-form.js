@@ -1,5 +1,7 @@
 import { html } from '/lit-html/lit-html.js';
 import { decorateAsComponent } from './utils/decorate-as-component.js'
+import { StateManager } from './utils/state-manager/state-manager.js';
+import { LOGIN } from './utils/state-manager/reducers.js'
 
 const UserLogInFormTemplate = (context) => html`
     <link href="/styles/log-in.css" rel="stylesheet">
@@ -66,7 +68,15 @@ export class UserLogInFormComponent extends HTMLElement {
 
         this.verifyUser(body['email'], body['password']).then((result) => {
             if(!this.isObjectEmpty(result)){
-                window.location = '/';
+                StateManager.dispatch({
+                    type: LOGIN,
+                    payload: {
+                        user: {
+                            id: result[0]['_id'],
+                            username: result[0]['username']
+                        }
+                    }
+                })
             }
             else
             {

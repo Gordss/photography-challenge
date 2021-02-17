@@ -6,6 +6,8 @@ const config = require('./config/config.json')
 const bodyParser = require('body-parser');
 const api = require('./api');
 const db = require('./db');
+const formidable = require('formidable');
+const fs = require('fs');
 
 const app = express();
 
@@ -36,6 +38,22 @@ app.get('/lit-html/*', function (req, res) {
         if (err) {
             console.error(err);
         }
+    });
+});
+
+app.get('/fileupload', function (req, res) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+        var oldpath = files.filetoupload.path;
+        var newpath = './challenge-photos/' + files.filetoupload.name;
+        console.log(newpath);
+        /* fs.rename(oldpath, newpath, function (err) {
+            if (err) {
+                console.error(err);
+            }
+            res.end();
+        });
+        */
     });
 });
 
