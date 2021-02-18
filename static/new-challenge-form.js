@@ -1,10 +1,11 @@
 import { html } from '/lit-html/lit-html.js';
 import { decorateAsComponent } from './utils/decorate-as-component.js';
+import { StateManager } from './utils/state-manager/state-manager.js';
 
 const NewChallengeFormTemplate = (context) => html`
   <link href="/styles/new-challenge.css" rel="stylesheet">
   <div class="container">
-    <form action="fileupload" @submit=${context.submitHandler.bind(context)}>
+    <form @submit=${context.submitHandler.bind(context)}>
         <h1>Create your challenge</h1>
         <p>
           <input type="text" id="title" name="title" placeholder="Title" required>
@@ -40,13 +41,15 @@ export class NewChallengeFormComponent extends HTMLElement {
         decorateAsComponent(this,  NewChallengeFormTemplate);
     }
 
-    submitHandler(event) {
+    submitHandler (event) {
       event.preventDefault();
       const formFields = Array.from(this.shadowRoot.querySelectorAll('p [name]'));
       const body = formFields.reduce((acc, currField) => {
           acc[currField.name] = currField.value;
           return acc;
       }, {});
+
+      body['userId'] = StateManager.getState().auth.user.id;
 
       fetch('/api/challenges', {
         headers: {
@@ -55,8 +58,41 @@ export class NewChallengeFormComponent extends HTMLElement {
         method: 'POST',
         body: JSON.stringify(body)
       }).then(() => {
-        window.location = '/';
+        this.handleImageUpload({
+          target: {
+            files: this.shadowRoot.querySelector('#image').files
+          }
+        });
+      })
+      .then(() => { 
+         Vaadin.Router.go('/');
       });
+    }
+
+    handleImageUpload (event) {
+      const files = event.target.files;
+      const image = files[0];
+      const formData = new FormData();
+      const imageType = /image.*/
+
+      if(!image.type.match(imageType)) {
+        alert('Sorry, only images are allowed');
+        return;
+      }
+
+      formData.append('someFile', files[0]);
+
+      fetch('/fileupload', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
+      })
     }
 }
 

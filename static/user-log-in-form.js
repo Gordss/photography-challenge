@@ -77,6 +77,7 @@ export class UserLogInFormComponent extends HTMLElement {
                         }
                     }
                 })
+                Vaadin.Router.go('/');
             }
             else
             {

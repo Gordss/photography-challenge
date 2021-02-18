@@ -87,7 +87,7 @@ export class UserRegistrationFormComponent extends HTMLElement {
                 method: 'POST',
                 body: JSON.stringify(body)  
             }).then(() => {
-                window.location = '/';
+                Vaadin.Router.go('/');
             });
           }
         }

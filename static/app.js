@@ -12,8 +12,8 @@ import { StateManager } from './utils/state-manager/state-manager.js';
 import { LOGIN, LOGOUT } from './utils/state-manager/reducers.js';
 
 const logOrRegister = html`
-    <li style="float: right" id="register-button"><a href="/register">Register</a></li>
-    <li style="float: right" id="login-button"><a href="/log-in">Log in</a></li>
+    <li style="float: right"><a href="/register">Register</a></li>
+    <li style="float: right"><a href="/log-in">Log in</a></li>
 `;
 
 const appTemplate = context => html`
@@ -21,9 +21,10 @@ const appTemplate = context => html`
     <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/">Challenges</a></li>
-        <li><a href="/new-challenge">New challenge</a></li>
-        ${context.auth.isLoggedIn ? html`<li style="float: right" id="username"><h3>${(context.auth.user.username)}</h3></li>` : logOrRegister}
-    </ul>
+        ${ifThen(context.auth.isLoggedIn, html`<li><a href="/new-challenge">New challenge</a></li>`)}
+        ${ifThen(context.auth.isLoggedIn, html`<li style="float: right"><a @click="${context.logoutHandler.bind(context)}">Log out</a></li>`)}
+        ${context.auth.isLoggedIn ? html`<li style="float: right"><a>${(context.auth.user.username)}</a></li>` : logOrRegister}
+        </ul>
     <div id="outlet"></div>
 `;
 
@@ -57,21 +58,12 @@ class AppComponent extends HTMLElement {
         })
     }
 
-    displayNavButtons(isLogged)
-    {
-        if(isLogged)
-        {
-            this.shadowRoot.getElementById('register-button').setAttribute('style', 'display: none');
-            this.shadowRoot.getElementById('login-button').setAttribute('style', 'display: none');
-            this.shadowRoot.getElementById('username').setAttribute('style', 'float:right');
-        }
-        else
-        {
-            this.shadowRoot.getElementById('register-button').setAttribute('style', 'float:right');
-            this.shadowRoot.getElementById('login-button').setAttribute('style', 'float:right');
-            this.shadowRoot.getElementById('username').setAttribute('style', 'display: none');
-        }
+    logoutHandler(event) {
+        StateManager.dispatch({
+            type: LOGOUT
+        });
     }
+
 }
 
 customElements.define('app-root', AppComponent);

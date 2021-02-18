@@ -6,8 +6,8 @@ const config = require('./config/config.json')
 const bodyParser = require('body-parser');
 const api = require('./api');
 const db = require('./db');
-const formidable = require('formidable');
 const fs = require('fs');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
@@ -41,20 +41,28 @@ app.get('/lit-html/*', function (req, res) {
     });
 });
 
-app.get('/fileupload', function (req, res) {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-        var oldpath = files.filetoupload.path;
-        var newpath = './challenge-photos/' + files.filetoupload.name;
-        console.log(newpath);
-        /* fs.rename(oldpath, newpath, function (err) {
-            if (err) {
-                console.error(err);
-            }
-            res.end();
+app.use(fileUpload());
+
+app.post('/fileupload', (req, res) => {
+    const fileName = req.files.someFile.name;
+    const filePath = path.join(__basedir, 'challenge-photos', fileName);
+
+    console.log(filePath);
+
+    req.files.someFile.mv(filePath, (error) => {
+        if(error) {
+            console.error(error);
+            res.writeHead(500, {
+                'Content-Type': 'application/json'
+              });
+            res.end(JSON.stringify({ status: 'error', message: error }))
+            return;
+        }
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
         });
-        */
-    });
+        res.end(JSON.stringify({ status: 'success', path: '/img/houses/' + fileName }));
+    })
 });
 
 app.use(express.static(path.join(__basedir, 'static')));
