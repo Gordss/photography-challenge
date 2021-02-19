@@ -13,7 +13,6 @@ import { StateManager } from './utils/state-manager/state-manager.js';
 import { LOGIN, LOGOUT } from './utils/state-manager/reducers.js';
 
 const logOrRegister = html`
-    <li style="float: right"><a href="/register">Register</a></li>
     <li style="float: right"><a href="/log-in">Log in</a></li>
 `;
 

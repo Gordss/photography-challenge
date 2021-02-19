@@ -76,7 +76,7 @@ export class UserLogInFormComponent extends HTMLElement {
                             username: result[0]['username']
                         }
                     }
-                })
+                });
                 Vaadin.Router.go('/');
             }
             else

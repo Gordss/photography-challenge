@@ -1,5 +1,11 @@
 import { html } from '/lit-html/lit-html.js';
-import { decorateAsComponent } from './utils/decorate-as-component.js'
+import { ifThen } from './directives/if-then.js';
+
+import { decorateAsComponent } from './utils/decorate-as-component.js';
+import { decorateAsStateProperty } from './utils/decorate-as-state-property.js';
+
+import { StateManager } from './utils/state-manager/state-manager.js';
+import { LOGIN, LOGOUT } from './utils/state-manager/reducers.js'
 
 const IndexContentTemplate = (context) => html`
     <link href="/styles/index-content.css" rel="stylesheet">
@@ -12,7 +18,7 @@ const IndexContentTemplate = (context) => html`
             <h3>Win prizes</h3>
         </div>
         
-        <button>Join now for FREE</button>
+        ${ifThen(!context.auth.isLoggedIn, html`<a @click="${context.registerHandler.bind(context)}">Join now for FREE</a>`)}
     </div>
 `;
 
@@ -24,6 +30,19 @@ export class IndexContentComponent extends HTMLElement {
         this.attachShadow({ mode: 'open'});
 
         decorateAsComponent(this, IndexContentTemplate);
+
+        decorateAsStateProperty(this, 'auth', StateManager.getState().auth);
+        StateManager.subscribe((action) => {
+            if(action.type === LOGIN || action.type === LOGOUT)
+            {
+                this.auth = StateManager.getState().auth;
+            }
+        });
+
+    }
+
+    registerHandler(event) {
+        Vaadin.Router.go('/register');
     }
 }
 
