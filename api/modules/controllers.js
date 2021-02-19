@@ -21,6 +21,12 @@ function generateControllers(name) {
           next();
         })
       },
+      findOneChallenge: (req, res, next) => {
+        queries.get({ title: req.params.title, userId: req.params.userId}).then(challenge => {
+          res.locals.data = challenge;
+          next();
+        })
+      },
       create: (req, res, next) => {
         return queries.insert(req.body).then(user => {
           res.locals.data = user;

@@ -1,0 +1,38 @@
+.container {
+    margin: 14% auto;
+}
+
+.text {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 60px;
+}
+
+h3 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    font-size: 20px;
+}
+
+button {
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: bold;
+    color: #F2E2D2;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(1, 25, 54, 0.8);
+    border-radius: 20px;
+    padding: 10px 15px;
+    margin: 0 auto;
+}
+
+button:hover {
+    background-color: rgba(1, 25, 54, 0.5);
+}

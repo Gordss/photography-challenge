@@ -6,7 +6,6 @@ const config = require('./config/config.json')
 const bodyParser = require('body-parser');
 const api = require('./api');
 const db = require('./db');
-const fs = require('fs');
 const fileUpload = require('express-fileupload');
 
 const app = express();
@@ -29,8 +28,17 @@ app.get('/assets/*', function (req, res) {
         if (err) {
             console.error(err);
         }
-    })
-})
+    });
+});
+
+app.get('/challenge-photos/*', function (req, res) {
+    const reqPath = req.path;
+    res.sendFile(path.join(__basedir, ...reqPath.split('/')), function (err) {
+        if (err) {
+            console.error(err);
+        }
+    });
+});
 
 app.get('/lit-html/*', function (req, res) {
     const reqPath = req.path;
@@ -44,12 +52,12 @@ app.get('/lit-html/*', function (req, res) {
 app.use(fileUpload());
 
 app.post('/fileupload', (req, res) => {
-    const fileName = req.files.someFile.name;
+    const fileName = req.files.fileContent.name;
     const filePath = path.join(__basedir, 'challenge-photos', fileName);
 
     console.log(filePath);
 
-    req.files.someFile.mv(filePath, (error) => {
+    req.files.fileContent.mv(filePath, (error) => {
         if(error) {
             console.error(error);
             res.writeHead(500, {

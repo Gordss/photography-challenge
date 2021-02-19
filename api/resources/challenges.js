@@ -20,4 +20,12 @@ router.route('/:id')
     )
     .delete(challengesController.remove);
 
+router.route('/:title/:userId')
+    .get(challengesController.findOneChallenge)
+    .put(
+        checkAndExtractChallengesFieldsMiddlewareFactory({strict: false}),
+        challengesController.update
+    )
+    .delete(challengesController.remove);
+
 module.exports = router;

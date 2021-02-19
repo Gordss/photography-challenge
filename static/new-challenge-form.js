@@ -58,9 +58,14 @@ export class NewChallengeFormComponent extends HTMLElement {
         method: 'POST',
         body: JSON.stringify(body)
       }).then(() => {
+        return fetch(`/api/challenges/${body['title']}/${body['userId']}`)
+            .then(res => res.json());
+      })
+      .then((res) => {
         this.handleImageUpload({
           target: {
-            files: this.shadowRoot.querySelector('#image').files
+            files: this.shadowRoot.querySelector('#image').files,
+            challengeId: res[0]._id
           }
         });
       })
@@ -71,16 +76,11 @@ export class NewChallengeFormComponent extends HTMLElement {
 
     handleImageUpload (event) {
       const files = event.target.files;
-      const image = files[0];
+      const fileExtention = files[0].name.split('.');
+      const fileName = event.target.challengeId + '.' + fileExtention[fileExtention.length - 1];
       const formData = new FormData();
-      const imageType = /image.*/
 
-      if(!image.type.match(imageType)) {
-        alert('Sorry, only images are allowed');
-        return;
-      }
-
-      formData.append('someFile', files[0]);
+      formData.append('fileContent', files[0], fileName);
 
       fetch('/fileupload', {
         method: 'POST',
