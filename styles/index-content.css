@@ -1,5 +1,13 @@
 .container {
-    margin: 14% auto;
+    margin: 5% auto;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+    height: 10%;
 }
 
 .text {

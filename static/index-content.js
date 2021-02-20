@@ -10,6 +10,9 @@ import { LOGIN, LOGOUT } from './utils/state-manager/reducers.js'
 const IndexContentTemplate = (context) => html`
     <link href="/styles/index-content.css" rel="stylesheet">
     <div class="container">
+        <div>
+            <img src="./assets/logo-vector.png" alt="Logo">
+        </div>
         <div class="text">
             <h1><b>Photo Race</b></h1>
             <h3>Create challenges and compete with other professional photographers!</h3>

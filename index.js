@@ -81,14 +81,6 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__basedir, 'index.html'));
 });
 
-app.get('/log-in', function (req, res) {
-    res.sendFile(path.join(__basedir, 'log-in.html'));
-});
-
-app.get('/register', function (req, res) {
-    res.sendFile(path.join(__basedir, 'register.html'));
-})
-
 app.get('*', function (req, res) {
     res.status(404).send('PAGE NOT FOUND!');
 });
